@@ -34,7 +34,7 @@
 #include <QStatusBar>
 #include <QString>
 #include <QUrl>
-#include <QActionGroup> 
+#include <QActionGroup>
 #include <QTimer>
 #include <cmath>
 
@@ -109,10 +109,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // we have to make sure we save the geomtry
     // for the ROM browser when emulation
     // isn't running (or hasn't run at all)
-    if (!this->ui_QuitAfterEmulation && 
+    if (!this->ui_QuitAfterEmulation &&
         !this->emulationThread->isRunning())
     {
-        this->storeGeometry();    
+        this->storeGeometry();
     }
 
     this->ui_NoSwitchToRomBrowser = true;
@@ -502,6 +502,14 @@ void MainWindow::updateActions(bool inEmulation, bool isPaused)
     this->action_System_GSButton->setShortcut(QKeySequence(keyBinding));
     keyBinding = QString::fromStdString(CoreSettingsGetStringValue(SettingsID::KeyBinding_Exit));
     this->action_System_Exit->setShortcut(QKeySequence(keyBinding));
+    this->action_System_Graphics->setShortcut(QKeySequence(keyBinding));
+    this->action_System_Graphics->setEnabled(CorePluginsHasConfig(CorePluginType::Gfx));
+    this->action_System_Audio->setShortcut(QKeySequence(keyBinding));
+    this->action_System_Audio->setEnabled(CorePluginsHasConfig(CorePluginType::Audio));
+    this->action_System_Rsp->setShortcut(QKeySequence(keyBinding));
+    this->action_System_Rsp->setEnabled(CorePluginsHasConfig(CorePluginType::Rsp));
+    this->action_System_Input->setShortcut(QKeySequence(keyBinding));
+    this->action_System_Input->setEnabled(CorePluginsHasConfig(CorePluginType::Input));
 
     // configure keybindings for save slots
     QAction* slotActions[] =
@@ -577,6 +585,10 @@ void MainWindow::addFullscreenActions(void)
     this->addAction(this->action_View_Fullscreen);
     this->addAction(this->action_Help_Github);
     this->addAction(this->action_Help_About);
+    this->addAction(this->action_System_Graphics);
+    this->addAction(this->action_System_Audio);
+    this->addAction(this->action_System_Rsp);
+    this->addAction(this->action_System_Input);
 }
 
 void MainWindow::removeFullscreenActions(void)
@@ -614,6 +626,10 @@ void MainWindow::removeFullscreenActions(void)
     this->removeAction(this->action_View_Fullscreen);
     this->removeAction(this->action_Help_Github);
     this->removeAction(this->action_Help_About);
+    this->removeAction(this->action_System_Graphics);
+    this->removeAction(this->action_System_Audio);
+    this->removeAction(this->action_System_Rsp);
+    this->removeAction(this->action_System_Input);
 }
 
 void MainWindow::configureActions(void)
@@ -692,6 +708,10 @@ void MainWindow::connectActionSignals(void)
     connect(this->action_System_Load, &QAction::triggered, this, &MainWindow::on_Action_System_Load);
     connect(this->action_System_Cheats, &QAction::triggered, this, &MainWindow::on_Action_System_Cheats);
     connect(this->action_System_GSButton, &QAction::triggered, this, &MainWindow::on_Action_System_GSButton);
+    connect(this->action_System_Graphics, &QAction::triggered, this, &MainWindow::on_Action_System_Graphics);
+    connect(this->action_System_Audio, &QAction::triggered, this, &MainWindow::on_Action_System_Audio);
+    connect(this->action_System_Rsp, &QAction::triggered, this, &MainWindow::on_Action_System_Rsp);
+    connect(this->action_System_Input, &QAction::triggered, this, &MainWindow::on_Action_System_Input);
 
     connect(this->action_Settings_Graphics, &QAction::triggered, this, &MainWindow::on_Action_Settings_Graphics);
     connect(this->action_Settings_Audio, &QAction::triggered, this, &MainWindow::on_Action_Settings_Audio);
@@ -927,7 +947,7 @@ void MainWindow::on_Action_System_OpenCombo(void)
     QString cartRom, diskRom;
 
     cartRom = QFileDialog::getOpenFileName(this, "", "", "N64 ROMs (*.n64 *.z64 *.v64 *.zip)");
-    
+
     if (cartRom.isEmpty())
     {
         if (isRunning && !isPaused)
@@ -1187,6 +1207,26 @@ void MainWindow::on_Action_System_GSButton(void)
         // only hold the gameshark button for 1 second
         this->ui_GamesharkButtonTimerId = this->startTimer(1000);
     }
+}
+
+void MainWindow::on_Action_System_Graphics(void)
+{
+    CorePluginsOpenConfig(CorePluginType::Gfx);
+}
+
+void MainWindow::on_Action_System_Audio(void)
+{
+    CorePluginsOpenConfig(CorePluginType::Audio);
+}
+
+void MainWindow::on_Action_System_Rsp(void)
+{
+    CorePluginsOpenConfig(CorePluginType::Rsp);
+}
+
+void MainWindow::on_Action_System_Input(void)
+{
+    CorePluginsOpenConfig(CorePluginType::Input);
 }
 
 void MainWindow::on_Action_Settings_Graphics(void)
@@ -1671,7 +1711,7 @@ void MainWindow::on_VidExt_ToggleFS(bool fullscreen)
         {
             this->menuBar()->show();
         }
-        
+
         if (this->ui_ShowToolbar && this->toolBar->isHidden())
         {
             this->toolBar->show();

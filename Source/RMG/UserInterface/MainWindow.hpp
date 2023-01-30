@@ -147,6 +147,11 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
     void on_Action_System_GSButton(void);
     void on_Action_System_Exit(void);
 
+    void on_Action_System_Graphics(void);
+    void on_Action_System_Audio(void);
+    void on_Action_System_Rsp(void);
+    void on_Action_System_Input(void);
+
     void on_Action_Settings_Graphics(void);
     void on_Action_Settings_Audio(void);
     void on_Action_Settings_Rsp(void);

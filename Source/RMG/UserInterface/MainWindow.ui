@@ -157,6 +157,11 @@
    <addaction name="action_View_Fullscreen"/>
    <addaction name="separator"/>
    <addaction name="action_Settings_Settings"/>
+   <addaction name="separator"/>
+   <addaction name="action_System_Graphics"/>>
+   <addaction name="action_System_Audio"/>>
+   <addaction name="action_System_Rsp"/>>
+   <addaction name="action_System_Input"/>>
   </widget>
   <action name="action_System_StartRom">
    <property name="icon">
@@ -214,6 +219,42 @@
    <property name="text">
     <string>Pause</string>
    </property>
+  </action>
+  <action name="action_System_Graphics">
+    <property name = "icon">
+      <iconset theme="brush-line">
+        <normaloff>.</normaloff>.</iconset>
+    </property>
+    <property name="text">
+      <string>Graphics</string>
+    </property> 
+  </action>
+  <action name="action_System_Audio">
+    <property name = "icon">
+      <iconset theme="volume-up-line">
+        <normaloff>.</normaloff>.</iconset>
+    </property>
+    <property name="text">
+      <string>Audio</string>
+    </property> 
+  </action>
+  <action name="action_System_Rsp">
+    <property name = "icon">
+      <iconset theme="settings-3-line">
+        <normaloff>.</normaloff>.</iconset>
+    </property>
+    <property name="text">
+      <string>RSP</string>
+    </property> 
+  </action>
+  <action name="action_System_Input">
+    <property name = "icon">
+      <iconset theme="gamepad-line">
+        <normaloff>.</normaloff>.</iconset>
+    </property>
+    <property name="text">
+      <string>Input</string>
+    </property> 
   </action>
   <action name="action_System_Screenshot">
    <property name="icon">
