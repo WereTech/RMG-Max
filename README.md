@@ -4,9 +4,13 @@ Rosalie's Mupen GUI is a free and open-source mupen64plus GUI written in C++.
 
 It offers a simple-to-use user interface.
 
+
 ## Support
 
 Join the [Rosalie's Mupen GUI Discord Server](https://discord.gg/k9GuyJ2PpF) for support
+
+## My Changes
+![Preview](https://user-images.githubusercontent.com/17415815/215473005-aeeb04f8-1a8f-43d7-b221-15ebd52f2bd5.png)
 
 ## License
 
